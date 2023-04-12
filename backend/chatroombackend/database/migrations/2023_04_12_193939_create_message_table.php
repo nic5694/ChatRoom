@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('message', function (Blueprint $table) {
+            $table->increments('id');
+            $table->longText('message');
+            $table->integer('sender_id')-> unsigned();
+            $table->foreign('sender_id')
+                ->references('id')
+                ->on('users');
+            $table->unsignedInteger('group_id');
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('messageGroup');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('message');
+    }
+};

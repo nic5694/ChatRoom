@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('messageGroup', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->unsignedInteger('Sender1_id');
+            $table->foreign('Sender1_id')
+                ->references('id')
+                ->on('users');
+            $table->unsignedInteger('Sender2_id');
+            $table->foreign('Sender2_id')
+                ->references('id')
+                ->on('users');
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('message_group');
     }
 };
