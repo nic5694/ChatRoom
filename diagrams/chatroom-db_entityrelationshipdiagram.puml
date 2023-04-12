@@ -1,0 +1,33 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/master/C4_Container.puml
+entity "Users" as e1 {
+  * id: int
+  --
+  * name: string
+  * email: string
+  * password: string
+  * remember_token: string
+  * created_at: timestamp
+  * updated_at: timestamp
+}
+entity "MessageGroup" as e2 {
+  * id: int
+  --
+  * user1_Id: Integer
+  * user2_Id: Integer
+  * created_at: timestamp
+  * updated_at: timestamp
+}
+
+entity "Messages" as e3 {
+  * id: int
+  --
+  * message: string
+  * message_group_id: Integer
+  * user_id: Integer
+  * created_at: timestamp
+  * updated_at: timestamp
+}
+e1 ||..o{ e2
+e2 ||..o{ e3
+@enduml
