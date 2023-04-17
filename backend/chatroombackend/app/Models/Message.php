@@ -12,7 +12,8 @@ class Message extends Model
         'email',
         'password',
         'active',
-        'profile_picture'
+        'profile_picture',
+        'timestamp'
     ];
     use HasFactory;
 }
