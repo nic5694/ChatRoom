@@ -5,6 +5,7 @@ function App() {
   return (
     <div>
       <NavBar></NavBar>
+      <NavBar2></NavBar2>
       {/*<NavBar2></NavBar2>*/}
     </div>
   );
