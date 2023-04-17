@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class userController extends Controller
+class UserController extends Controller
 {
     //
-
     public function addUser(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string',
             'password' => 'required|string',
             'active' => 'required|boolean',
-            'profile_picture' => 'nullable|image',
-            'timestamp' => 'required|string'
+            'profile_picture' => 'nullable|image'
         ]);
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => $fields['password'],
             'active' => $fields['active'],
-            'profile_picture' => $fields['profile_picture'],
-            'timestamp' => $fields['timestamp']
+            'profile_picture' => $fields['profile_picture']
         ]);
         return response($user, 201);
     }
@@ -35,7 +33,6 @@ class userController extends Controller
         $user = User::find($id);
         return response($user, 200);
     }
-    //put a User
     public function modifyUserById($id, $request){
         $user = User::find($id);
         $user->name = $request->name;
