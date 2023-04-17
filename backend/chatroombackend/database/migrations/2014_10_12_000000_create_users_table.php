@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('active');
             $table->binary('profile_picture')->nullable();
-            $table->timestamps();
+            $table->dateTime('date_created');
         });
     }
 
