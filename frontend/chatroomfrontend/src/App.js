@@ -12,9 +12,9 @@ function App() {
   return (
     <div>
 
-      <LoggedInPage></LoggedInPage>
+      {/*<LoggedInPage></LoggedInPage>*/}
       
-      {/*page == 0? <LoginPage setRegisterPage={setPage}></LoginPage> : <RegistrationPage setLoginPage={setPage}></RegistrationPage>*/}
+      {page == 0? <LoginPage setRegisterPage={setPage}></LoginPage> : <RegistrationPage setLoginPage={setPage}></RegistrationPage>}
 
     </div>
   );
