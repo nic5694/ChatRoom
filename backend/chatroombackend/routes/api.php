@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/v1/users', [userController::class, 'getAllUsers']);
-Route::get('/v1/users/{id}', [userController::class, 'getUserById']);
-Route::post('/v1/users', [userController::class, 'addUser']);
-Route::put('/v1/users/{id}', [userController::class, 'modifyUserById']);
+Route::get('/v1/users', [UserController::class, 'getAllUsers']);
+Route::get('/v1/users/{username}', [UserController::class, 'getUserByUserName']);
+//how to write a post that accpets a json object?
+Route::post('/v1/users', [UserController::class, 'addNewUser']);
+Route::put('/v1/users/{id}', [UserController::class, 'modifyUserById']);
 

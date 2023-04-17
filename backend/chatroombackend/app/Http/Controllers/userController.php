@@ -2,23 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\ChatUser;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     //
-    public function addUser(Request $request){
+    /*public function addUser(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string',
             'password' => 'required|string',
+            'username' => 'required|string',
+            'active' => 'required|boolean',
+            'profile_picture' => 'nullable|image'
+        ]);/*
+        $user = chatUser::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'username' => $fields['username'],
+            'password' => $fields['password'],
+            'active' => $fields['active'],
+            'profile_picture' => $fields['profile_picture']
+        ]);
+        return response("testing", 200);
+    }*/
+    public function addNewUser(Request $request){
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+            'username' => 'required|string',
             'active' => 'required|boolean',
             'profile_picture' => 'nullable|image'
         ]);
-        $user = User::create([
+        $user = ChatUser::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
+            'username' => $fields['username'],
             'password' => $fields['password'],
             'active' => $fields['active'],
             'profile_picture' => $fields['profile_picture']
@@ -26,15 +47,15 @@ class UserController extends Controller
         return response($user, 201);
     }
     public function getAllUsers(){
-        $users = User::all();
+        $users = ChatUser::all();
         return response($users, 200);
     }
-    public function getUserById($id){
-        $user = User::find($id);
+    public function getUserByUserName($userName){
+        $user = ChatUser::where('username', $userName)->first();
         return response($user, 200);
     }
     public function modifyUserById($id, $request){
-        $user = User::find($id);
+        $user = ChatUser::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;

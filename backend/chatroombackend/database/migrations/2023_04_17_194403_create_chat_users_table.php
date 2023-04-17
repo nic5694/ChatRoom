@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('chat_users', function (Blueprint $table) {
+            $table->increments('id')-> unsigned();
             $table->string('name');
+            $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('active');
             $table->binary('profile_picture')->nullable();
-            $table->dateTime('date_created');
+            $table->timestamps();
         });
     }
 

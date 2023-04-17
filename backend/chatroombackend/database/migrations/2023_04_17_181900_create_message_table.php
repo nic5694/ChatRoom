@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('sender_id')
                 ->references('id')
                 ->on('users');
-            $table->dateTime('date_sent');
+            $table->timestamps();
         });
     }
 

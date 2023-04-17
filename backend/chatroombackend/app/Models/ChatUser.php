@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Message extends Model
+class ChatUser extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
-        'active',
         'profile_picture',
-        'timestamp'
+        'active'
     ];
-    use HasFactory;
-    function messages(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(ChatUser::class);
     }
 }
