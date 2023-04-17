@@ -1,15 +1,14 @@
 import NavBar from './components/NavBar';
 import NavBar2 from './components/NavBar2';
+import LoggedInPage from './pages/LoggedInPage';
+import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
 
 function App() {
   return (
     <div>
-      Nav 1 (When logged in)
-      <NavBar></NavBar>
-      <br></br>
-      Nav 2 (When Loging in or Registering)
-      <NavBar2></NavBar2>
-      {/*<NavBar2></NavBar2>*/}
+      {/*<LoginPage></LoginPage>*/}
+      {<RegistrationPage></RegistrationPage>}
     </div>
   );
 }
