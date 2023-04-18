@@ -5,8 +5,6 @@ function LoggedInPage(props) {
     return (
       <div>
 
-        
-
         {/* Whole Container */}
         <div class="flex h-screen">
 
@@ -39,7 +37,7 @@ function LoggedInPage(props) {
             </div>
 
             {/* List Of User Container */}
-            <div class="mx-5 my-5 h-[50%] overflow-auto">
+            <div class="mx-2 my-2 h-[50%] overflow-auto">
 
               {generateUser("username","user@example.com",true)}
               {generateUser("username","user@example.com",true)}
@@ -178,7 +176,7 @@ function LoggedInPage(props) {
   function generateUser(username,email,isOnline){
 
     return (
-      <div class="bg-white border-2 drop-shadow-md rounded-md flex py-1 px-6 my-3 justify-between " style={isOnline? {opacity : "100%"} : {opacity : "40%"} }>
+      <div class="bg-white border-[1px] flex py-1 px-6 justify-between " style={isOnline? {opacity : "100%"} : {opacity : "40%"} }>
 
       <div class="flex gap-3">
         <div >{generateUserSVG2()}</div>
