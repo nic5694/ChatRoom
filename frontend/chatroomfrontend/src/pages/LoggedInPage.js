@@ -21,7 +21,7 @@ function LoggedInPage(props) {
                 {generateUserSVG()}
               </div>
 
-              <div class="py-11 px-5 font-semibold text-lg text-[#171717]">
+              <div class="py-11 px-5 text-lg text-[#171717]">
                 Youssef Chahboune
               </div>
 
@@ -39,7 +39,7 @@ function LoggedInPage(props) {
             </div>
 
             {/* List Of User Container */}
-            <div class="mx-5 my-5 h-[55%] overflow-auto">
+            <div class="mx-5 my-5 h-[50%] overflow-auto">
 
               {generateUser("username","user@example.com",true)}
               {generateUser("username","user@example.com",true)}
@@ -73,15 +73,9 @@ function LoggedInPage(props) {
               {genrateGrayBubble("I'm doing well :)","Nicholas123")}
               {genrateGrayBubble("So...What are you doing ??","Nicholas123")}
               {genrateGreenBubble("Not much :/", "youssef123")}
-              {genrateGreenBubble("you !", "youssef123")}
-              {genrateGreenBubble("Hello everyone !", "youssef123")}
-              {genrateGreenBubble("Hope you guys are doing well ?! :) !", "youssef123")}
-              {genrateGrayBubble("Hi Youssef ! How are you today??","Nicholas123")}
-              {genrateGreenBubble("Good and you Nicholas ?!", "youssef123")}
-              {genrateGrayBubble("I'm doing well :)","Nicholas123")}
-              {genrateGrayBubble("So...What are you doing ??","Nicholas123")}
-              {genrateGreenBubble("Not much :/", "youssef123")}
-              {genrateGreenBubble("you !", "youssef123")}
+              {genrateGrayBubble("Not much either but i have been working on some pretty intresting stuff you know we should meet some time in the near futur to talk about it you might be intrested in some of my projects !!", "Nicholas123")}
+              {genrateGrayBubble("Anyways gotta Go Buddy !", "Nicholas123")}
+              {genrateGreenBubble("Alright see ya ! :)", "youssef123")}
              
 
             </div>
@@ -104,7 +98,7 @@ function LoggedInPage(props) {
     return (
       <div>
         <div class="flex justify-end py-1 ">
-          <div class="text-white bg-[#58E166] px-5 py-4 rounded-4xl w-[auto] text-xs font-semibold">
+          <div class="text-white bg-[#58E166] px-5 py-4 rounded-4xl max-w-[50%] text-xs ">
             {message}
           </div>
         </div>
@@ -120,7 +114,7 @@ function LoggedInPage(props) {
     return (
       <div>
         <div class="flex py-1 ">
-          <div class="text-gray-800 bg-[lightgray] px-5 py-4 rounded-4xl max-w-[50%] text-xs font-semibold ">
+          <div class="text-gray-800 bg-[lightgray] px-5 py-4 rounded-4xl max-w-[50%] text-xs ">
             {message}
           </div>
         </div>
@@ -158,7 +152,7 @@ function LoggedInPage(props) {
 
   function generateUserSVG2(){
     return (
-      <svg width="50" height="50" viewBox="0 0 98 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="40" height="50" viewBox="0 0 98 98" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_21_5)">
       <circle cx="49" cy="45" r="45" fill="white"/>
       <circle cx="49" cy="45" r="44.5" stroke="black" stroke-opacity="0.25"/>
@@ -184,12 +178,12 @@ function LoggedInPage(props) {
   function generateUser(username,email,isOnline){
 
     return (
-      <div class="bg-white border-2 drop-shadow-md rounded-md flex py-2 px-6 my-3 justify-between " style={isOnline? {opacity : "100%"} : {opacity : "40%"} }>
+      <div class="bg-white border-2 drop-shadow-md rounded-md flex py-1 px-6 my-3 justify-between " style={isOnline? {opacity : "100%"} : {opacity : "40%"} }>
 
       <div class="flex gap-3">
         <div >{generateUserSVG2()}</div>
 
-        <div class="text-sm mt-1">
+        <div class="text-[12px] mt-1">
           <div>{username}</div>
           <div>{email}</div>
         </div>
@@ -198,16 +192,16 @@ function LoggedInPage(props) {
       {
         isOnline? 
         <div class="flex mt-4">
-          <div class="w-3 h-3 mt-1 mx-2 bg-[#58E166] rounded-xl"></div>
-          <div class="text-sm">Online</div>
+          <div class="w-2 h-2 mt-[4px] mx-2 bg-[#58E166] rounded-xl"></div>
+          <div class="text-[12px]">Online</div>
         </div>
         
 
         : 
         
         <div class="flex mt-4">
-          <div class="w-3 h-3 mt-1 mx-2 bg-[lightgray] rounded-xl"></div>
-          <div class="text-sm">Offline</div>
+          <div class="w-2 h-2 mt-[4px] mx-2 bg-[lightgray] rounded-xl"></div>
+          <div class="text-[12px]">Offline</div>
         </div>
           
       }
