@@ -55,7 +55,7 @@ function LoggedInPage(props) {
           </div>
 
           {/* The Chat Container */}
-          <div class="bg-white w-2/3 flex flex-col">
+          <div class="bg-white w-1/2 flex flex-col">
 
              {/* Chat Banner */}
             <div class="text-center bg-[#171717] text-white py-[17.5px] text-sm font-bold drop-shadow-lg">
