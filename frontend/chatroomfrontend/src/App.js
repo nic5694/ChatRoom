@@ -7,14 +7,16 @@ import React, {useState} from 'react';
 
 function App() {
 
-  const [page,setPage] = useState(0);
+  const [page,setPage] = useState(3);
 
   return (
     <div>
-
-      {/*<LoggedInPage></LoggedInPage>*/}
       
-      {page == 0? <LoginPage setRegisterPage={setPage}></LoginPage> : <RegistrationPage setLoginPage={setPage}></RegistrationPage>}
+      {
+        page == 0? <LoginPage setRegisterPage={setPage}></LoginPage> 
+        : page == 1 ? <RegistrationPage setLoginPage={setPage}></RegistrationPage> 
+        : <LoggedInPage logOutUser={setPage}></LoggedInPage>
+      }
 
     </div>
   );

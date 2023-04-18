@@ -51,7 +51,7 @@ function RegistrationPage(props) {
             </div>
             
             <div class="flex justify-center mt-2">
-              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit">Register</button> 
+              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" onClick={() => props.setLoginPage(3)} >Register</button> 
             </div>
 
             <div class="flex justify-center my-2">

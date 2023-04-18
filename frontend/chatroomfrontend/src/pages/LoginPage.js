@@ -35,7 +35,7 @@ function LoginPage(props) {
             </div>
             
             <div class="flex justify-center mt-2">
-              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit">Log in</button> 
+              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" onClick={() => props.setRegisterPage(3)}>Log in</button> 
             </div>
 
             <div class="flex justify-center my-2">
