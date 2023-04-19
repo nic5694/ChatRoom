@@ -1,7 +1,42 @@
 import '../App.css';
 import NavBar from '../components/NavBar';
+import {useState,useEffect} from 'react'
 
 function LoggedInPage(props) {
+
+    const[arrayOfUsers, setArrayOfUsers] = useState([]);
+    const[arrayOfMessages, setArrayOfMessages] = useState([]);
+
+    let CurrentUser = "youssef123";
+
+    useEffect(() => {
+      const newArrayOfUsers = [
+        { username: "username1", email: "user1@example.com", active: true },      
+        { username: "username2", email: "user2@example.com", active: false }, 
+        { username: "username2", email: "user2@example.com", active: false },
+        { username: "username1", email: "user1@example.com", active: true },      
+        { username: "username2", email: "user2@example.com", active: false }, 
+        { username: "username2", email: "user2@example.com", active: false },
+        { username: "username1", email: "user1@example.com", active: true },      
+        { username: "username2", email: "user2@example.com", active: false } ];
+      setArrayOfUsers(newArrayOfUsers);
+    }, []);
+
+    useEffect(() => {
+      const newArrayOfMessages = [
+        { message: "Hi Everyone !", user: "youssef123" },
+        { message: "Hi youssef!", user: "Nic123" },
+        { message: "What you doing Nic123", user: "youssef123" },
+        { message: "Hi Everyone !", user: "youssef123" },
+        { message: "Hi youssef!", user: "Nic123" },
+        { message: "What you doing Nic123", user: "youssef123" },
+        { message: "Hi Everyone !", user: "youssef123" },
+        { message: "Hi youssef!", user: "Nic123" },
+        { message: "What you doing Nic123", user: "youssef123" },
+      ];
+      setArrayOfMessages(newArrayOfMessages);
+    }, [arrayOfMessages]);
+
     return (
       <div>
 
@@ -39,15 +74,9 @@ function LoggedInPage(props) {
             {/* List Of User Container */}
             <div class="mx-2 my-2 h-[50%] overflow-auto">
 
-              {generateUser("username","user@example.com",true)}
-              {generateUser("username","user@example.com",true)}
-              {generateUser("username","user@example.com",false)}
-              {generateUser("username","user@example.com",true)}
-              {generateUser("username","user@example.com",false)}
-              {generateUser("username","user@example.com",false)}
-              {generateUser("username","user@example.com",false)}
-              {generateUser("username","user@example.com",false)}
-              {generateUser("username","user@example.com",false)}
+            {arrayOfUsers.map((user) => (
+              <div>{generateUser(user.username,user.email,user.active)}</div> 
+            ))}
 
             </div>  
           </div>
@@ -61,9 +90,13 @@ function LoggedInPage(props) {
             </div>
             
             {/* Actual Chat */}
-            <div class="p-10 overflow-auto" id="chatContainer">
+            <div class="p-10 h-full overflow-auto" id="chatContainer">
 
 
+            {arrayOfMessages.map((msg) => (
+              <div>{msg.user === CurrentUser? genrateGreenBubble(msg.message,msg.user) : genrateGrayBubble(msg.message,msg.user) }</div> 
+            ))}
+              {/* 
               {genrateGreenBubble("Hello everyone !", "youssef123")}
               {genrateGreenBubble("Hope you guys are doing well ?! :) !", "youssef123")}
               {genrateGrayBubble("Hi Youssef ! How are you today??","Nicholas123")}
@@ -73,8 +106,7 @@ function LoggedInPage(props) {
               {genrateGreenBubble("Not much :/", "youssef123")}
               {genrateGrayBubble("Not much either but i have been working on some pretty intresting stuff you know we should meet some time in the near futur to talk about it you might be intrested in some of my projects !!", "Nicholas123")}
               {genrateGrayBubble("Anyways gotta Go Buddy !", "Nicholas123")}
-              {genrateGreenBubble("Alright see ya ! :)", "youssef123")}
-             
+              {genrateGreenBubble("Alright see ya ! :)", "youssef123")}*/}
 
             </div>
             
@@ -96,7 +128,7 @@ function LoggedInPage(props) {
     return (
       <div>
         <div class="flex justify-end py-1 ">
-          <div class="text-white bg-[#58E166] px-5 py-4 rounded-4xl max-w-[50%] text-xs ">
+          <div class="text-white bg-[#58E166] px-5 py-4 rounded-2xl max-w-[50%] text-xs ">
             {message}
           </div>
         </div>
@@ -112,7 +144,7 @@ function LoggedInPage(props) {
     return (
       <div>
         <div class="flex py-1 ">
-          <div class="text-gray-800 bg-[lightgray] px-5 py-4 rounded-4xl max-w-[50%] text-xs ">
+          <div class="text-gray-800 bg-[lightgray] px-5 py-4 rounded-2xl max-w-[50%] text-xs ">
             {message}
           </div>
         </div>
