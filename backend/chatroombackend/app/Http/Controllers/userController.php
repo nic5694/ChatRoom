@@ -7,26 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //
-    /*public function addUser(Request $request){
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string',
-            'username' => 'required|string',
-            'active' => 'required|boolean',
-            'profile_picture' => 'nullable|image'
-        ]);/*
-        $user = chatUser::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'username' => $fields['username'],
-            'password' => $fields['password'],
-            'active' => $fields['active'],
-            'profile_picture' => $fields['profile_picture']
-        ]);
-        return response("testing", 200);
-    }*/
     public function addNewUser(Request $request){
         $fields = $request->validate([
             'name' => 'required|string',

@@ -10,16 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Message extends Model
 {
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'active',
-        'profile_picture',
-        'timestamp'
+        'message',
+        'sender_id',
+        'image'
     ];
     use HasFactory;
-    function messages(): HasMany
+    function user(): BelongsTo
     {
-        return $this->hasMany(Message::class);
+        return $this->belongsTo(ChatUser::class);
     }
 }

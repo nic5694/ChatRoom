@@ -17,8 +17,8 @@ class ChatUser extends Model
         'profile_picture',
         'active'
     ];
-    public function users(): HasMany
+    function messages(): HasMany
     {
-        return $this->hasMany(ChatUser::class);
+        return $this->hasMany(Message::class);
     }
 }

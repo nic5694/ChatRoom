@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('sender_id')
                 ->references('id')
                 ->on('users');
+            $table->binary('image')->nullable();
             $table->timestamps();
         });
     }
