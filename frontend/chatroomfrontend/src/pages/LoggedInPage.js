@@ -35,7 +35,7 @@ function LoggedInPage(props) {
         { message: "What you doing Nic123", user: "youssef123" },
       ];
       setArrayOfMessages(newArrayOfMessages);
-    }, [arrayOfMessages]);
+    }, []);
 
     return (
       <div>
