@@ -11,11 +11,14 @@ class messageController extends Controller
         $fields = $request->validate([
             'sender_id' => 'required|integer',
             'message' => 'required|string',
-            'chat_image' => 'nullable|image'
+            'sender_username' => 'required|string',
+            'chat_image' => 'nullable|image',
+
         ]);
         $message = Message::create([
             'sender_id' => $fields['sender_id'],
             'message' => $fields['message'],
+            'sender_username' => $fields['sender_username'],
             'image' => $fields['chat_image']
         ]);
         return response($message, 201);

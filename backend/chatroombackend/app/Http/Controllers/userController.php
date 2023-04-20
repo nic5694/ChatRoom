@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ChatUser;
 use Illuminate\Http\Request;
+use function Psy\debug;
 
 class UserController extends Controller
 {
@@ -14,6 +15,7 @@ class UserController extends Controller
             'password' => 'required|string',
             'username' => 'required|string',
             'active' => 'required|boolean',
+
             'profile_picture' => 'nullable|image'
         ]);
         $user = ChatUser::create([
@@ -43,6 +45,11 @@ class UserController extends Controller
         $user->profile_picture = $request->profile_picture;
         $user->timestamp = $request->timestamp;
         $user->save();
+        return response($user, 200);
+    }
+    public function findUserById($id){
+
+        $user = ChatUser::find($id);
         return response($user, 200);
     }
 }

@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->longText('message');
-            $table->unsignedInteger('sender_id')
-                ->references('id')
-                ->on('users');
+            $table->unsignedInteger('sender_id')->constrained('chat_users');
+            $table->string('sender_username');
             $table->binary('image')->nullable();
             $table->timestamps();
         });

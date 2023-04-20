@@ -13,6 +13,7 @@ class Message extends Model
     protected $fillable = [
         'message',
         'sender_id',
+        'sender_username',
         'image'
     ];
 
@@ -21,9 +22,8 @@ class Message extends Model
         'created_at',
         'updated_at'
     ];
-
-    function user(): BelongsTo
+    function sender(): BelongsTo
     {
-        return $this->belongsTo(ChatUser::class);
+        return $this->belongsTo(ChatUser::class, 'sender_id');
     }
 }
