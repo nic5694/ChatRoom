@@ -25,7 +25,7 @@ class messageController extends Controller
         return response($messages, 200);
     }
     public function getMessagesInTheLast3Seconds(){
-        $messages = Message::where('timestamp', '>=', now()->subSeconds(3))->get();
+        $messages = Message::where('created_at', '>=', now()->subSeconds(3))->get();
         return response($messages, 200);
     }
 }
