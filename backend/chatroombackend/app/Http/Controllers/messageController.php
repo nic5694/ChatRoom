@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class messageController extends Controller
 {
-    function sendMessage(Request $request){
+    public function sendMessage(Request $request){
         $fields = $request->validate([
             'sender_id' => 'required|integer',
-            'receiver_id' => 'required|integer',
             'message' => 'required|string',
-            'timestamp' => 'required|date'
+            'chat_image' => 'nullable|image'
         ]);
         $message = Message::create([
             'sender_id' => $fields['sender_id'],
-            'receiver_id' => $fields['receiver_id'],
             'message' => $fields['message'],
-            'timestamp' => $fields['timestamp']
+            'image' => $fields['chat_image']
         ]);
         return response($message, 201);
     }
-    function getAllMessages(){
+    public function getAllMessages(){
         $messages = Message::all();
         return response($messages, 200);
     }
-    function getMessagesInTheLast3Seconds(){
+    public function getMessagesInTheLast3Seconds(){
         $messages = Message::where('timestamp', '>=', now()->subSeconds(3))->get();
         return response($messages, 200);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\messageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,6 @@ Route::post('/v1/users', [UserController::class, 'addNewUser']);
 Route::put('/v1/users/{id}', [UserController::class, 'modifyUserById']);
 Route::get('/v1/messages', [messageController::class, 'getAllMessages']);
 Route::get('/v1/messages/last3seconds', [messageController::class, 'getMessagesInTheLast3Seconds']);
+Route::post('/v1/messages', [messageController::class, 'sendMessage']);
+
 

@@ -17,6 +17,11 @@ class ChatUser extends Model
         'profile_picture',
         'active'
     ];
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
     function messages(): HasMany
     {
         return $this->hasMany(Message::class);

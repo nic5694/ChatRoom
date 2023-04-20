@@ -9,12 +9,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Message extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'message',
         'sender_id',
         'image'
     ];
-    use HasFactory;
+
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
     function user(): BelongsTo
     {
         return $this->belongsTo(ChatUser::class);
