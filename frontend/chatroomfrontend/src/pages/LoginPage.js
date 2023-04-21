@@ -1,7 +1,42 @@
 import '../App.css';
 import NavBar2 from '../components/NavBar2';
+import axios from 'axios';
 
 function LoginPage(props) {
+
+  const ValidateUserCredentials = (username,password) => {
+
+    axios.get("http://127.0.0.1:8000/api/v1/users/" + username)
+    .then(res => {
+      
+      if(res.data.username == username && res.data.password == password ){
+        //user is valid !
+        //console.log("User Found !");
+        props.setUser(res.data);
+        props.setRegisterPage(3);
+        
+      } else {
+        //password is not valid but username exist
+        //console.log("Invalid Check username or password");
+        alert("Invalid Credential Check Your Username or Password.")
+      }
+      
+      }).catch(err => {
+        //TODO mention an error to the user
+        console.log(err);
+    });
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    ValidateUserCredentials(event.target.username.value,event.target.password.value);
+    event.target.username.value = "";
+    event.target.password.value = "";
+  }
+
+
+
+
     return (
       <div>
         <NavBar2></NavBar2>
@@ -18,29 +53,33 @@ function LoginPage(props) {
               Log In
             </div>
 
-            <div class="ml-[70px]">
-              <label class="text-white">Username</label>
-            </div>
-          
-            <div class="flex justify-center mb-2">
-              <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" />
-            </div>
+            <form onSubmit={onSubmit}>
+              
+                <div class="ml-[70px]">
+                  <label class="text-white">Username</label>
+                </div>
+              
+                <div class="flex justify-center mb-2">
+                  <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" />
+                </div>
 
-            <div class="ml-[70px]">
-              <label class="text-white ">Password</label>
-            </div>
+                <div class="ml-[70px]">
+                  <label class="text-white ">Password</label>
+                </div>
 
-            <div class="flex justify-center mb-10">
-              <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" />
-            </div>
+                <div class="flex justify-center mb-10">
+                  <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password"/>
+                </div>
+
+                <div class="flex justify-center mt-2">
+                  <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit">Log in</button> 
+                </div>
+
+                <div class="flex justify-center my-2">
+                  <button class="text-white text-[10px] " onClick={() => props.setRegisterPage(1)}><u>Not registered yet ? Register Now</u></button>
+                </div>
             
-            <div class="flex justify-center mt-2">
-              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" onClick={() => props.setRegisterPage(3)}>Log in</button> 
-            </div>
-
-            <div class="flex justify-center my-2">
-              <button class="text-white text-[10px] " onClick={() => props.setRegisterPage(1)}><u>Not registered yet ? Register Now</u></button>
-            </div>
+            </form>
 
           </div>
     

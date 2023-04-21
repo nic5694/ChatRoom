@@ -10,20 +10,22 @@ function ChatPage(props) {
 
     let fetchedMessages = [];
     let fetchedUsers = [];
-    let currentUserId = 1; //TODO change this to the current user id when the login is implemented
-    let currentUserUsername = "nic123"; //TODO change this to the current user username when the login is implemented
+    
     const loadAllMessages = () => {
-        axios.get("http://127.0.0.1:8000/api/v1/messages")
+        setInterval(() => {
+          axios.get("http://127.0.0.1:8000/api/v1/messages")
             .then(res => {
-                fetchedMessages = res.data;
-                setArrayOfMessages(fetchedMessages);
+              fetchedMessages = res.data;
+              setArrayOfMessages(fetchedMessages);
             }).catch(err => {
-            //TODO mention an error to the user
-            console.log(err);
-        })
-    }
+              //TODO mention an error to the user
+              console.log(err);
+            })
+        }, 3000);
+      }
 
     const loadAllUsers = () => {
+        setInterval(() => {
         axios.get("http://127.0.0.1:8000/api/v1/users")
             .then(res => {
                 fetchedUsers = res.data;
@@ -32,10 +34,10 @@ function ChatPage(props) {
             //TODO mention an error to the user
             console.log(err);
         })
+    }, 3000); 
     }
 
-
-    const loadMessagesLast3Seconds = async (callback) => {
+    /*const loadMessagesLast3Seconds = async (callback) => {
         let time = new Date().toLocaleTimeString();
         console.log(time);
         console.log("Loading messages last 3 seconds...")
@@ -58,12 +60,13 @@ function ChatPage(props) {
                 await loadMessagesLast3Seconds();
             }
         }
-    }
+    }*/
+
     const sendMessage = (data) => {
         axios.post("http://127.0.0.1:8000/api/v1/messages", data)
             .then(res => {
                 //todo check status code
-                loadMessagesLast3Seconds(false);
+                //loadMessagesLast3Seconds(false);
             }).catch(err => {
             //TODO mention an error to the user
             console.log(err);
@@ -72,10 +75,11 @@ function ChatPage(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
+
         let data = {
             message: event.target.message.value,
-            sender_id: currentUserId,
-            sender_username: currentUserUsername,
+            sender_id: props.user.id,
+            sender_username: props.user.username,
             chat_image: null
             //TODO add image support
         }
@@ -84,15 +88,20 @@ function ChatPage(props) {
     }
 
     useEffect(() => {
+        loadAllMessages();
+        loadAllUsers();
+    }, []);
+
+    /*useEffect(() => {
         loadAllUsers();
         setArrayOfUsers(fetchedUsers);
     }, []);
 
     useEffect(() => {
         loadAllMessages();
-        loadMessagesLast3Seconds();
+        //loadMessagesLast3Seconds();
         setArrayOfMessages(fetchedMessages);
-    }, []);
+    },[]);*/
 
     return (
         <div>
@@ -113,7 +122,7 @@ function ChatPage(props) {
                         </div>
 
                         <div class="py-11 px-5 text-lg text-[#171717]">
-                            Youssef Chahboune
+                            {props.user == null ? " " : props.user.name}
                         </div>
 
                         <div class="py-11">|</div>
@@ -134,7 +143,7 @@ function ChatPage(props) {
                     <div class="mx-2 my-2 h-[50%] overflow-auto">
 
                         {arrayOfUsers.map((user) => (
-                            <div>{generateUser(user.username, user.email, user.active)}</div>
+                            <div>{props.user.id === user.id? <div></div> : generateUser(user.username, user.email, user.active)}</div>
                         ))}
 
                     </div>
@@ -153,19 +162,8 @@ function ChatPage(props) {
 
 
                         {arrayOfMessages.map((msg) => (
-                            <div>{msg.sender_id === currentUserId ? genrateGreenBubble(msg.message, msg.sender_username) : genrateGrayBubble(msg.message, msg.sender_username)}</div>
+                            <div>{msg.sender_id === props.user.id ? genrateGreenBubble(msg.message, msg.sender_username) : genrateGrayBubble(msg.message, msg.sender_username)}</div>
                         ))}
-                        {/*
-              {genrateGreenBubble("Hello everyone !", "youssef123")}
-              {genrateGreenBubble("Hope you guys are doing well ?! :) !", "youssef123")}
-              {genrateGrayBubble("Hi Youssef ! How are you today??","Nicholas123")}
-              {genrateGreenBubble("Good and you Nicholas ?!", "youssef123")}
-              {genrateGrayBubble("I'm doing well :)","Nicholas123")}
-              {genrateGrayBubble("So...What are you doing ??","Nicholas123")}
-              {genrateGreenBubble("Not much :/", "youssef123")}
-              {genrateGrayBubble("Not much either but i have been working on some pretty intresting stuff you know we should meet some time in the near futur to talk about it you might be intrested in some of my projects !!", "Nicholas123")}
-              {genrateGrayBubble("Anyways gotta Go Buddy !", "Nicholas123")}
-              {genrateGreenBubble("Alright see ya ! :)", "youssef123")}*/}
 
                     </div>
 
@@ -291,7 +289,7 @@ function generateUser(username, email, isOnline) {
             </div>
 
             {
-                isOnline ?
+                isOnline == 1 ?
                     <div class="flex mt-4">
                         <div class="w-2 h-2 mt-[4px] mx-2 bg-[#58E166] rounded-xl"></div>
                         <div class="text-[12px]">Online</div>

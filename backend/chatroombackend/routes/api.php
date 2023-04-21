@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/v1/users', [UserController::class, 'getAllUsers']);
-//Route::get('/v1/users/{username}', [UserController::class, 'getUserByUserName']);
+Route::get('/v1/users/{username}', [UserController::class, 'getUserByUserName']);
 Route::post('/v1/users', [UserController::class, 'addNewUser']);
 Route::put('/v1/users/{id}', [UserController::class, 'modifyUserById']);
 Route::get('/v1/messages', [messageController::class, 'getAllMessages']);

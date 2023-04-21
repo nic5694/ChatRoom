@@ -1,5 +1,6 @@
 import '../App.css';
 import NavBar2 from '../components/NavBar2';
+import axios from 'axios';
 
 function RegistrationPage(props) {
     return (
