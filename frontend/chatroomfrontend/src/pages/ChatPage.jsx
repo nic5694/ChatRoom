@@ -12,13 +12,11 @@ function ChatPage(props) {
     let fetchedUsers = [];
     let currentUserId = 1; //TODO change this to the current user id when the login is implemented
     let currentUserUsername = "nic123"; //TODO change this to the current user username when the login is implemented
-
     const loadAllMessages = () => {
         axios.get("http://127.0.0.1:8000/api/v1/messages")
             .then(res => {
                 fetchedMessages = res.data;
                 setArrayOfMessages(fetchedMessages);
-                console.log(fetchedMessages)
             }).catch(err => {
             //TODO mention an error to the user
             console.log(err);
@@ -35,11 +33,37 @@ function ChatPage(props) {
             console.log(err);
         })
     }
+
+
+    const loadMessagesLast3Seconds = async (callback) => {
+        let time = new Date().toLocaleTimeString();
+        console.log(time);
+        console.log("Loading messages last 3 seconds...")
+        try {
+            const res = await axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds");
+
+            if (res.data.length > 0) {
+                let newMessages = res.data.filter((msg) => !arrayOfMessages.some((msg2) => msg2.id === msg.id));
+                // using spread operator to add the new messages to the array
+                setArrayOfMessages(messages =>[...messages, ...newMessages]);
+            }
+        } catch (err) {
+            // TODO: handle the error
+            console.log(err);
+        } finally {
+            if(callback === undefined) {
+                // Wait for 5 seconds before sending the next request
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                // Call the function again to send the next request
+                await loadMessagesLast3Seconds();
+            }
+        }
+    }
     const sendMessage = (data) => {
         axios.post("http://127.0.0.1:8000/api/v1/messages", data)
             .then(res => {
                 //todo check status code
-                loadAllMessagesInTheLast3Seconds();
+                loadMessagesLast3Seconds(false);
             }).catch(err => {
             //TODO mention an error to the user
             console.log(err);
@@ -59,25 +83,6 @@ function ChatPage(props) {
         sendMessage(data);
     }
 
-    const loadAllMessagesInTheLast3Seconds = async () => {
-        console.log("Loading messages in the last 3 seconds")
-        try {
-            const res = await axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds");
-            // using spread operator to add the new messages to the array
-            if (res.data.length > 0) {
-                setArrayOfMessages([...arrayOfMessages, ...res.data]);
-            }
-        } catch (err) {
-            // TODO: handle the error
-            console.log(err);
-        } finally {
-            // Wait for 5 seconds before sending the next request
-            await new Promise(resolve => setTimeout(resolve, 3000));
-
-            // Call the function again to send the next request
-            await loadAllMessagesInTheLast3Seconds();
-        }
-    }
     useEffect(() => {
         loadAllUsers();
         setArrayOfUsers(fetchedUsers);
@@ -85,8 +90,7 @@ function ChatPage(props) {
 
     useEffect(() => {
         loadAllMessages();
-
-        loadAllMessagesInTheLast3Seconds();
+        loadMessagesLast3Seconds();
         setArrayOfMessages(fetchedMessages);
     }, []);
 

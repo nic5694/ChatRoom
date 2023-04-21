@@ -25,9 +25,9 @@ Route::get('/v1/users', [UserController::class, 'getAllUsers']);
 Route::post('/v1/users', [UserController::class, 'addNewUser']);
 Route::put('/v1/users/{id}', [UserController::class, 'modifyUserById']);
 Route::get('/v1/messages', [messageController::class, 'getAllMessages']);
-Route::get('/v1/messages/last3seconds', [messageController::class, 'getMessagesInTheLast3Seconds']);
-   // ->withoutMiddleware('ThrottleRequests')
-   // ->middleware('throttle:200:1');
+Route::get('/v1/messages/last3seconds', [messageController::class, 'getMessagesInTheLast3Seconds'])//;
+    ->withoutMiddleware('throttle:api')
+    ->middleware('throttle:500:1');
 Route::post('/v1/messages', [messageController::class, 'sendMessage']);
 Route::get("/v1/users/{id}", [UserController::class, "findUserById"]);
 
