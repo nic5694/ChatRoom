@@ -10,8 +10,8 @@ function ChatPage(props) {
 
     let fetchedMessages = [];
     let fetchedUsers = [];
-    let currentUserId = 1; //change this to the current user id
-    let currentUserUsername = "nic123"; //change this to the current user username
+    let currentUserId = 1; //TODO change this to the current user id when the login is implemented
+    let currentUserUsername = "nic123"; //TODO change this to the current user username when the login is implemented
 
     const loadAllMessages = () => {
         axios.get("http://127.0.0.1:8000/api/v1/messages")
@@ -59,47 +59,34 @@ function ChatPage(props) {
         sendMessage(data);
     }
 
-    const loadAllMessagesInTheLast3Seconds = () => {
-        axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds")
-            .then(res => {
-                //using spread operator to add the new messages to the array
+    const loadAllMessagesInTheLast3Seconds = async () => {
+        console.log("Loading messages in the last 3 seconds")
+        try {
+            const res = await axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds");
+            // using spread operator to add the new messages to the array
+            if (res.data.length > 0) {
                 setArrayOfMessages([...arrayOfMessages, ...res.data]);
-            }).catch(err => {
-            //TODO mention an error to the user
+            }
+        } catch (err) {
+            // TODO: handle the error
             console.log(err);
-        })
-    }
-    //TODO set interval is causing too many requests
-    //setInterval(loadAllMessagesInTheLast3Seconds, 10000);
+        } finally {
+            // Wait for 5 seconds before sending the next request
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
-    let CurrentUser = "1";
+            // Call the function again to send the next request
+            await loadAllMessagesInTheLast3Seconds();
+        }
+    }
     useEffect(() => {
-        const newArrayOfUsers = [
-            {username: "username1", email: "user1@example.com", active: true},
-            {username: "username2", email: "user2@example.com", active: false},
-            {username: "username2", email: "user2@example.com", active: false},
-            {username: "username1", email: "user1@example.com", active: true},
-            {username: "username2", email: "user2@example.com", active: false},
-            {username: "username2", email: "user2@example.com", active: false},
-            {username: "username1", email: "user1@example.com", active: true},
-            {username: "username2", email: "user2@example.com", active: false}];
         loadAllUsers();
         setArrayOfUsers(fetchedUsers);
     }, []);
 
     useEffect(() => {
-        const newArrayOfMessages = [
-            {message: "Hi Everyone !", user: "youssef123"},
-            {message: "Hi youssef!", user: "Nic123"},
-            {message: "What you doing Nic123", user: "youssef123"},
-            {message: "Hi Everyone !", user: "youssef123"},
-            {message: "Hi youssef!", user: "Nic123"},
-            {message: "What you doing Nic123", user: "youssef123"},
-            {message: "Hi Everyone !", user: "youssef123"},
-            {message: "Hi youssef!", user: "Nic123"},
-            {message: "What you doing Nic123", user: "youssef123"},
-        ];
         loadAllMessages();
+
+        loadAllMessagesInTheLast3Seconds();
         setArrayOfMessages(fetchedMessages);
     }, []);
 
