@@ -10,9 +10,9 @@ function ChatPage(props) {
 
     let fetchedMessages = [];
     let fetchedUsers = [];
-    let currentUserId = 1;
-
-    function getAllMessages() {
+    let currentUserId = 1; //change this to the current user id
+    let currentUserUsername = "nic123"; //change this to the current user username
+    const loadAllMessages = () => {
         axios.get("http://127.0.0.1:8000/api/v1/messages")
             .then(res => {
                 fetchedMessages = res.data;
@@ -24,7 +24,7 @@ function ChatPage(props) {
         })
     }
 
-    function getAllUsers() {
+    const loadAllUsers = () => {
         axios.get("http://127.0.0.1:8000/api/v1/users")
             .then(res => {
                 fetchedUsers = res.data;
@@ -34,12 +34,35 @@ function ChatPage(props) {
             console.log(err);
         })
     }
+    const sendMessage = (data) => {
+        axios.post("http://127.0.0.1:8000/api/v1/messages", data)
+            .then(res => {
+                //todo check status code
+                loadAllMessagesInTheLast3Seconds();
+            }).catch(err => {
+            //TODO mention an error to the user
+            console.log(err);
+        });
+    }
 
-    function getAllMessagesInTheLastThreeSeconds() {
+    const onSubmit = (event) => {
+        event.preventDefault();
+        let data = {
+            message: event.target.message.value,
+            sender_id: currentUserId,
+            sender_username: currentUserUsername,
+            chat_image: null
+            //TODO add image support
+        }
+        event.target.message.value = "";
+        sendMessage(data);
+    }
+
+    const loadAllMessagesInTheLast3Seconds = () => {
         axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds")
             .then(res => {
-                fetchedMessages = res.data;
-                setArrayOfMessages(fetchedMessages);
+                //using spread operator to add the new messages to the array
+                setArrayOfMessages([...arrayOfMessages, ...res.data]);
             }).catch(err => {
             //TODO mention an error to the user
             console.log(err);
@@ -57,7 +80,7 @@ function ChatPage(props) {
             {username: "username2", email: "user2@example.com", active: false},
             {username: "username1", email: "user1@example.com", active: true},
             {username: "username2", email: "user2@example.com", active: false}];
-        getAllUsers();
+        loadAllUsers();
         setArrayOfUsers(fetchedUsers);
     }, []);
 
@@ -73,7 +96,7 @@ function ChatPage(props) {
             {message: "Hi youssef!", user: "Nic123"},
             {message: "What you doing Nic123", user: "youssef123"},
         ];
-        getAllMessages();
+        loadAllMessages();
         setArrayOfMessages(fetchedMessages);
     }, []);
 
@@ -153,13 +176,17 @@ function ChatPage(props) {
                     </div>
 
                     {/* Send Message Bar */}
-                    <div class="bg-white py-5 border-[1px] border-t-gray-300 border-b-0 flex justify-around">
-                        <input class="bg-white border-[1px] border-gray-500 rounded-sm w-[75%] pl-2"
-                               placeholder='Enter Message Here' type="text" id="message"/>
-                        <button type="submit"
-                                class="bg-[#171717] text-white w-24 h-10 rounded-md text-sm font-semibold">Send
-                        </button>
-                    </div>
+                    <form onSubmit={onSubmit}>
+                        <div class="bg-white py-5 border-[1px] border-t-gray-300 border-b-0 flex justify-around">
+
+                            <input class="bg-white border-[1px] border-gray-500 rounded-sm w-[75%] pl-2"
+                                   placeholder='Enter Message Here' type="text" id="message"/>
+                            <button type="submit"
+                                    class="bg-[#171717] text-white w-24 h-10 rounded-md text-sm font-semibold">Send
+                            </button>
+
+                        </div>
+                    </form>
 
                 </div>
 
