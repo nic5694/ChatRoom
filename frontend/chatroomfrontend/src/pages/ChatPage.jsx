@@ -12,6 +12,7 @@ function ChatPage(props) {
     let fetchedUsers = [];
     let currentUserId = 1; //change this to the current user id
     let currentUserUsername = "nic123"; //change this to the current user username
+
     const loadAllMessages = () => {
         axios.get("http://127.0.0.1:8000/api/v1/messages")
             .then(res => {
@@ -68,6 +69,8 @@ function ChatPage(props) {
             console.log(err);
         })
     }
+    //TODO set interval is causing too many requests
+    //setInterval(loadAllMessagesInTheLast3Seconds, 10000);
 
     let CurrentUser = "1";
     useEffect(() => {
