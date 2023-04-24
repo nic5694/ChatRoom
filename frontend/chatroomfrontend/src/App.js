@@ -1,6 +1,4 @@
 import axios from 'axios';
-import NavBar from './components/NavBar';
-import NavBar2 from './components/NavBar2';
 import ChatPage from './pages/ChatPage';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
@@ -41,8 +39,8 @@ function App() {
     <div>
       
       {
-        page == 0? <LoginPage setRegisterPage={setPage} setUser={setUser}></LoginPage> 
-        : page == 1 ? <RegistrationPage setLoginPage={setPage} setUser={setUser}></RegistrationPage> 
+        page === 0? <LoginPage setRegisterPage={setPage} setUser={setUser}></LoginPage>
+        : page === 1 ? <RegistrationPage setLoginPage={setPage} setUser={setUser}></RegistrationPage>
         : <ChatPage logOutUser={logOut} user={user} setUser={setUser}></ChatPage>
       }
 
