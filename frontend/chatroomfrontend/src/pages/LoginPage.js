@@ -12,8 +12,31 @@ function LoginPage(props) {
       if(res.data.username == username && res.data.password == password ){
         //user is valid !
         //console.log("User Found !");
-        props.setUser(res.data);
-        props.setRegisterPage(3);
+
+        // Update user active field from 0 = not actif to 1 = actif
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+
+        axios.put("http://127.0.0.1:8000/api/v1/users/" + res.data.id,
+          {
+            name: res.data.name,
+            email: res.data.email,
+            username: res.data.username,
+            password: res.data.password,
+            active: 1,
+            profile_picture: null,
+            updated_at: formattedDate
+          }
+        )
+        .then(response => {
+          // use response to set user
+          console.log(response.data);
+          props.setUser(response.data);
+          props.setRegisterPage(3);
+        })
+        .catch(error => {
+          console.error(error);
+        });
         
       } else {
         //password is not valid but username exist
@@ -60,7 +83,7 @@ function LoginPage(props) {
                 </div>
               
                 <div class="flex justify-center mb-2">
-                  <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" />
+                  <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" required />
                 </div>
 
                 <div class="ml-[70px]">
@@ -68,7 +91,7 @@ function LoginPage(props) {
                 </div>
 
                 <div class="flex justify-center mb-10">
-                  <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password"/>
+                  <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password" required/>
                 </div>
 
                 <div class="flex justify-center mt-2">

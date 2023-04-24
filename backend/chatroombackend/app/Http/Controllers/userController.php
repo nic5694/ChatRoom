@@ -36,17 +36,35 @@ class UserController extends Controller
         $user = ChatUser::where('username', $userName)->first();
         return response($user, 200);
     }
-    public function modifyUserById($id, $request){
+
+    /*public function modifyUserById($id, $request){
         $user = ChatUser::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->username = $request->username;
         $user->password = $request->password;
         $user->active = $request->active;
         $user->profile_picture = $request->profile_picture;
         $user->timestamp = $request->timestamp;
         $user->save();
         return response($user, 200);
+    }*/
+
+    // fixed the modify user by id by accepting a request
+    public function modifyUserById($id, Request $request){
+        // Use $request to access the parameters sent with the request
+        $user = ChatUser::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->password = $request->input('password');
+        $user->active = $request->input('active');
+        $user->profile_picture = $request->input('profile_picture');
+        $user->updated_at = $request->input('updated_at');
+        $user->save();
+        return response($user, 200);
     }
+    
     public function findUserById($id){
 
         $user = ChatUser::find($id);
