@@ -91,7 +91,7 @@ function RegistrationPage(props) {
                 </div>
 
                 <div class="mb-2">
-                  <input class="w-60 h-8 text-sm text-white rounded-sm" type="file" placeholder="Enter username here" id="profileImg" name="profileImg" required />
+                  <input class="w-60 h-8 text-sm text-white rounded-sm" type="file" placeholder="Enter username here" id="profileImg" name="profileImg" />
                 </div>
 
               </div>

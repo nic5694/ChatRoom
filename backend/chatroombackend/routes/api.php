@@ -20,7 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/v1/users', [UserController::class, 'getAllUsers']);
+Route::get('/v1/users', [UserController::class, 'getAllUsers'])
+    ->withoutMiddleware('throttle:api')
+    ->middleware('throttle:500:1');
 Route::get('/v1/users/{username}', [UserController::class, 'getUserByUserName']);
 Route::post('/v1/users', [UserController::class, 'addNewUser']);
 Route::put('/v1/users/{id}', [UserController::class, 'modifyUserById']);
