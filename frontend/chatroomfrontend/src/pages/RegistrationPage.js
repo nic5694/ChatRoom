@@ -27,14 +27,16 @@ function RegistrationPage(props) {
   }
 
   const onSubmit = (event) => {
+    
+    
     event.preventDefault();
+
     CreateNewUser(
       event.target.name.value,
       event.target.email.value,
       event.target.username.value,
-      event.target.password.value
-      
-      );
+      event.target.password.value,
+    );
 
   }
 
@@ -48,51 +50,92 @@ function RegistrationPage(props) {
               {generateUserSVG()}
           </div>
           
-          <div class="bg-[#171717] w-96 h-[500px] drop-shadow-xl rounded-md z-0 mt-20 mb-10">
+          <div class="bg-[#171717] w-[600px] drop-shadow-xl rounded-md z-0 mt-20 mb-10">
 
             <div class="text-white font-bold text-center text-xl mt-14 mb-5">
               Create User
             </div>
 
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} class="flex flex-col px-[8.5%] pb-12">
 
-              <div class="ml-[70px]">
-                <label class="text-white">Full Name</label>
-              </div>
+              <div class="flex flex-row gap-5">
+                
+                <div class="flex flex-col">
+                  
+                  <div>
+                    <label class="text-white">Full Name</label>
+                  </div>
             
-              <div class="flex justify-center mb-2">
-                <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter full name here" id="name" required />
-              </div>
+                  <div class="mb-2">
+                    <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter full name here" id="name" required />
+                  </div>
 
-              <div class="ml-[70px]">
-                <label class="text-white">E-mail</label>
-              </div>
+                </div>
+
+                <div class="flex flex-col">
+                  <div>
+                    <label class="text-white">E-mail</label>
+                  </div>
             
-              <div class="flex justify-center mb-2">
-                <input class="w-60 h-8 text-sm rounded-sm px-2" type="email" placeholder="Enter E-mail here" id="email" required/>
+                  <div class="mb-2">
+                    <input class="w-60 h-8 text-sm rounded-sm px-2" type="email" placeholder="Enter E-mail here" id="email" required/>
+                  </div>
+                </div>
+
               </div>
 
-              <div class="ml-[70px]">
-                <label class="text-white">Username</label>
-              </div>
-            
-              <div class="flex justify-center mb-2">
-                <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" required />
+              <div class="flex flex-col">
+
+                <div>
+                  <label class="text-white">Profile Image</label>
+                </div>
+
+                <div class="mb-2">
+                  <input class="w-60 h-8 text-sm text-white rounded-sm" type="file" placeholder="Enter username here" id="profileImg" name="profileImg" required />
+                </div>
+
               </div>
 
-              <div class="ml-[70px]">
-                <label class="text-white ">Password</label>
+              <div class="flex flex-row gap-5 mb-10">
+
+                <div class="flex flex-col">
+                  <div>
+                    <label class="text-white">Username</label>
+                  </div>
+                
+                  <div class="mb-2">
+                    <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" required />
+                  </div>
+                </div>
+
+                <div class="flex flex-col">
+
+                  <div>
+                    <label class="text-white ">Password</label>
+                  </div>
+
+                  <div class="mb-2">
+                    <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password" required />
+                  </div>
+
+                </div>
+
               </div>
 
-              <div class="flex justify-center mb-10">
-                <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password" required />
-              </div>
-              
-              <div class="flex justify-center mt-2">
-                <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" >Register</button> 
+              <div class="flex flex-row gap-5">
+                
+                <div class="flex justify-center mt-2">
+                  <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" >Register</button> 
+                </div>
+
+                <div class="flex justify-center mt-2">
+                  
+                  <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="reset"> Clear</button> 
+                </div>
+
               </div>
 
-              <div class="flex justify-center my-2">
+              <div class="my-2">
                 <button class="text-white text-[10px] " onClick={() => props.setLoginPage(0)}><u>Go Back To Login Page</u></button>
               </div>
 
@@ -130,5 +173,6 @@ function RegistrationPage(props) {
       </svg>
     );
   }
+
   
 export default RegistrationPage;
