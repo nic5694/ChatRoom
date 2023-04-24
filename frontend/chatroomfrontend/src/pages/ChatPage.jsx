@@ -8,13 +8,9 @@ function ChatPage(props) {
     const [arrayOfUsers, setArrayOfUsers] = useState([]);
     const [arrayOfMessages, setArrayOfMessages] = useState([]);
 
-    let fetchedMessages = [];
-    let fetchedUsers = [];
-
     const loadAllMessages = async (callback) => {
         try {
             const res = axios.get("http://127.0.0.1:8000/api/v1/messages")
-                //    fetchedMessages = res.data;
             setArrayOfMessages((await res).data);
         } catch (err) {
             console.log(err);
@@ -38,36 +34,6 @@ function ChatPage(props) {
                 await loadAllUsers();
             }
         }
-        // fetchedUsers = res.data;
-        // setArrayOfUsers(fetchedUsers);
-
-
-        /*
-                const loadMessagesLast3Seconds = async (callback) => {
-                    let time = new Date().toLocaleTimeString();
-                    console.log(time);
-                    console.log("Loading messages last 3 seconds...")
-                    try {
-                        const res = await axios.get("http://127.0.0.1:8000/api/v1/messages/last3seconds");
-
-                        if (res.data.length > 0) {
-                            let newMessages = res.data.filter((msg) => !arrayOfMessages.some((msg2) => msg2.id === msg.id));
-                            // using spread operator to add the new messages to the array
-                            setArrayOfMessages(messages => [...messages, ...newMessages]);
-                        }
-                    } catch (err) {
-                        // TODO: handle the error
-                        console.log(err);
-                    } finally {
-                        if (callback === undefined) {
-                            // Wait for 5 seconds before sending the next request
-                            await new Promise(resolve => setTimeout(resolve, 3000));
-                            // Call the function again to send the next request
-                            await loadMessagesLast3Seconds();
-                        }
-                    }
-                }*/
-
         const sendMessage = (data) => {
             axios.post("http://127.0.0.1:8000/api/v1/messages", data)
                 .then(res => {
@@ -98,17 +64,6 @@ function ChatPage(props) {
             loadAllUsers();
         }, []);
 
-        /*useEffect(() => {
-            loadAllUsers();
-            setArrayOfUsers(fetchedUsers);
-        }, []);
-
-        useEffect(() => {
-            loadAllMessages();
-            //loadMessagesLast3Seconds();
-            setArrayOfMessages(fetchedMessages);
-        },[]);*/
-
         const logOut = () => {
 
             const currentDate = new Date();
@@ -137,30 +92,22 @@ function ChatPage(props) {
 
         return (
             <div>
-
                 {/* Whole Container */}
                 <div class="flex h-screen">
 
                     {/* The Users Container */}
                     <div class="bg-white w-1/2 border-[0.5px] border-t-0 border-l-0 border-gray-300"><NavBar
                         LogOut={props.logOutUser}></NavBar>
-
-
                         {/* Current User Logged In Containers*/}
                         <div class="flex justify-center py-8">
-
                             <div>
                                 {generateUserSVG()}
                             </div>
-
                             <div class="py-11 px-5 text-lg text-[#171717]">
                                 {props.user == null ? " " : props.user.name}
                             </div>
-
                             <div class="py-11">|</div>
-
                             <div class="w-3 h-3 bg-[#58E166] rounded-xl my-[52px] ml-3"></div>
-
                             <div class="py-[46px] pl-2">Online</div>
 
                         </div>
