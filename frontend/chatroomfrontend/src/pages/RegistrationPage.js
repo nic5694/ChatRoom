@@ -1,8 +1,43 @@
 import '../App.css';
 import NavBar2 from '../components/NavBar2';
 import axios from 'axios';
+const CryptoJS = require("crypto-js");
 
 function RegistrationPage(props) {
+
+  const CreateNewUser = (name,email,username,password) => {
+  
+    axios.post("http://127.0.0.1:8000/api/v1/users", {
+      name: name,
+      email: email,
+      username: username,
+      password: CryptoJS.MD5(password).toString(),
+      active: true,
+      profile_picture: null
+    })
+    .then(response => {
+      //console.log(response.data);
+      props.setUser(response.data);
+      props.setLoginPage(3);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    CreateNewUser(
+      event.target.name.value,
+      event.target.email.value,
+      event.target.username.value,
+      event.target.password.value
+      
+      );
+
+  }
+
     return (
       <div>
         <NavBar2></NavBar2>
@@ -19,45 +54,49 @@ function RegistrationPage(props) {
               Create User
             </div>
 
-            <div class="ml-[70px]">
-              <label class="text-white">Full Name</label>
-            </div>
-          
-            <div class="flex justify-center mb-2">
-              <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter full name here" />
-            </div>
+            <form onSubmit={onSubmit}>
 
-            <div class="ml-[70px]">
-              <label class="text-white">E-mail</label>
-            </div>
-          
-            <div class="flex justify-center mb-2">
-              <input class="w-60 h-8 text-sm rounded-sm px-2" type="email" placeholder="Enter E-mail here" />
-            </div>
-
-            <div class="ml-[70px]">
-              <label class="text-white">Username</label>
-            </div>
-          
-            <div class="flex justify-center mb-2">
-              <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" />
-            </div>
-
-            <div class="ml-[70px]">
-              <label class="text-white ">Password</label>
-            </div>
-
-            <div class="flex justify-center mb-10">
-              <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" />
-            </div>
+              <div class="ml-[70px]">
+                <label class="text-white">Full Name</label>
+              </div>
             
-            <div class="flex justify-center mt-2">
-              <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" onClick={() => props.setLoginPage(3)} >Register</button> 
-            </div>
+              <div class="flex justify-center mb-2">
+                <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter full name here" id="name" required />
+              </div>
 
-            <div class="flex justify-center my-2">
-              <button class="text-white text-[10px] " onClick={() => props.setLoginPage(0)}><u>Go Back To Login Page</u></button>
-            </div>
+              <div class="ml-[70px]">
+                <label class="text-white">E-mail</label>
+              </div>
+            
+              <div class="flex justify-center mb-2">
+                <input class="w-60 h-8 text-sm rounded-sm px-2" type="email" placeholder="Enter E-mail here" id="email" required/>
+              </div>
+
+              <div class="ml-[70px]">
+                <label class="text-white">Username</label>
+              </div>
+            
+              <div class="flex justify-center mb-2">
+                <input class="w-60 h-8 text-sm rounded-sm px-2" type="text" placeholder="Enter username here" id="username" required />
+              </div>
+
+              <div class="ml-[70px]">
+                <label class="text-white ">Password</label>
+              </div>
+
+              <div class="flex justify-center mb-10">
+                <input class="w-60 text-sm h-8 rounded-sm px-2" type="password" placeholder="Enter password here" id="password" required />
+              </div>
+              
+              <div class="flex justify-center mt-2">
+                <button class="border-white border-2 text-white w-20 text-[10px] h-7" type="submit" >Register</button> 
+              </div>
+
+              <div class="flex justify-center my-2">
+                <button class="text-white text-[10px] " onClick={() => props.setLoginPage(0)}><u>Go Back To Login Page</u></button>
+              </div>
+
+            </form>
 
           </div>
     

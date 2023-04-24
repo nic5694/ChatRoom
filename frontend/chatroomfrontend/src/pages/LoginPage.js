@@ -1,6 +1,7 @@
 import '../App.css';
 import NavBar2 from '../components/NavBar2';
 import axios from 'axios';
+const CryptoJS = require("crypto-js");
 
 function LoginPage(props) {
 
@@ -9,7 +10,8 @@ function LoginPage(props) {
     axios.get("http://127.0.0.1:8000/api/v1/users/" + username)
     .then(res => {
       
-      if(res.data.username == username && res.data.password == password ){
+      CryptoJS.MD5(password).toString()
+      if(res.data.username == username && res.data.password == CryptoJS.MD5(password).toString() ){
         //user is valid !
         //console.log("User Found !");
 
@@ -30,7 +32,7 @@ function LoginPage(props) {
         )
         .then(response => {
           // use response to set user
-          console.log(response.data);
+          //console.log(response.data);
           props.setUser(response.data);
           props.setRegisterPage(3);
         })

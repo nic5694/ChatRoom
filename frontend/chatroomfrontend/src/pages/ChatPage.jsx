@@ -103,6 +103,32 @@ function ChatPage(props) {
         setArrayOfMessages(fetchedMessages);
     },[]);*/
 
+    const logOut = () => {
+
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+
+        axios.put("http://127.0.0.1:8000/api/v1/users/" + props.user.id,
+          {
+            name: props.user.name,
+            email: props.user.email,
+            username: props.user.username,
+            password: props.user.password,
+            active: 0,
+            profile_picture: null,
+            updated_at: formattedDate
+          }
+        )
+        .then(response => {
+          // use response to set user
+          props.setUser({});
+          props.setRegisterPage(0);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
     return (
         <div>
 

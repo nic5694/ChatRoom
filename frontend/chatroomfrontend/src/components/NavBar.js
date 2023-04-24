@@ -9,7 +9,7 @@ function NavBar(props) {
             </div>
           
             <div class="mr-16">
-                <button class="duration-300 border-2 py-[3px] text-[12px] px-5 rounded-sm text-white font-semibold opacity-75 hover:opacity-100" onClick = {() => props.LogOut(0)}> Log out </button>
+                <button class="duration-300 border-2 py-[3px] text-[12px] px-5 rounded-sm text-white font-semibold opacity-75 hover:opacity-100" onClick = {() => props.LogOut()}> Log out </button>
             </div>
         </div>
       </div>
