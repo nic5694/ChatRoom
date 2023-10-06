@@ -11,7 +11,7 @@ function LoginPage(props) {
     .then(res => {
       
       CryptoJS.MD5(password).toString()
-      if(res.data.username == username && res.data.password == CryptoJS.MD5(password).toString() ){
+      if(res.data.username === username && res.data.password === CryptoJS.MD5(password).toString() ){
         //user is valid !
         //console.log("User Found !");
 
