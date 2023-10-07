@@ -31,7 +31,7 @@ This application is a chat room that allows users to send messages and images to
 ![img.png](img.png)
 <a name="technologies"></a>
 ## Technologies used
-- React
+- ReactJs
 - HTML
 - CSS
 - PHP (using Laravel framework)
