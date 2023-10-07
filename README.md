@@ -1,6 +1,6 @@
 # Chat Room PHP Project Front End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [Composer Create-Project](https://laravel.com/docs/10.x/installation).
 
 ## Run the project
 
