@@ -24,13 +24,12 @@ In the project directory, you can run:
 ### Application's purpose
 This application is a chat room that allows users to send messages to each other. Users can create an account and log in to the chat room. When a new account is created, the password is hashed and stored in myPHPAdmin database. The application allows for a group chat format of messaging showing active user's in the group.
 #### Screenshots of application in desktop view:
-### Sign in
-![img_1.png](img_1.png)
+### Sign up
+![image](https://github.com/nic5694/ChatRoom/assets/101201789/f978a6f7-6ada-4197-9449-d771eeca149b)
 ### Log in
-![img_2.png](img_2.png)
-
+![image](https://github.com/nic5694/ChatRoom/assets/101201789/d08fa682-9777-483d-8c1e-91ce1513a514)
 ### World Chat
-![img.png](img.png)
+![image](https://github.com/nic5694/ChatRoom/assets/101201789/e76af4c9-74f4-4e70-a761-1ee20da0f6ab)
 <a name="technologies"></a>
 ## Technologies used
 - ReactJs
